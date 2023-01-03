@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modal</title>
+</head>
+
+<style>
+.init-modal {
+  background: rgb(0 0 0 / 60%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  transition: all .15s linear;
+  opacity: 0;
+  visibility: hidden;
+}
+.cont-modal-all {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.contenido-modal {
+  position: relative;
+  background-color: #fff;
+  max-width: 80%;
+  transform: translateY(-100px);
+  transition: all 1s linear;
+  max-height: 80%;
+  width: 80%;
+  height: 80%;
+}
+
+div.modal-bgOn{
+  opacity: 1;
+  visibility: visible;
+  transition: all .15s linear;
+}
+
+div.modal-bgOff{
+  opacity: 0;
+  visibility: hidden;
+  transition: all .15s linear;
+}
+
+div.modal-bgOn .contenido-modal{
+  transform: translateY(0);
+  transition: all 0.5s linear;
+}
+
+div.modal-bgOff .contenido-modal{
+  transform: translateY(-100px);
+  transition: all .15s linear;
+}
+
+.close-x {
+  background: #C30F10;
+  cursor: pointer;
+  height: 32px;
+  width: 32px;
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  transform: rotate(45deg);
+  box-shadow: 3px 3px 9px 0px rgb(195 15 16 / 32%);
+  transition: all 0.6s;
+}
+
+.line-x1, .line-x2 {
+  pointer-events: none;
+  background: #ffffff;
+  height: 13px;
+  width: 2px;
+}
+
+.line-x1 {
+  transform: translateX(1px);
+}
+
+.line-x2 {
+  transform: rotate(90deg) translateY(1px);
+}
+
+.btn-modal-open{
+  cursor: pointer;
+}
+</style>
+<body>
+  
+  <!-- Btn -->
+  <button class="btn-modal-open" data-modal="insert_text">Text_btn</button>
+  <!-- Btn -->
+
+  <!-- modal -->
+  <div class="init-modal" data-modal="insert_text">
+    <div class="cont-modal-all">
+        <div class="contenido-modal">
+        <div class="close-x">
+            <div class="line-x1"></div>
+            <div class="line-x2"></div>
+        </div>
+
+        <div>
+          Inserte_contenido
+        </div>
+        </div>
+    </div>
+  </div>
+  <!-- modal -->
+  
+
+  <!-- Btn -->
+  <button class="btn-modal-open" data-modal="insert_text-2">Text_btn-2</button>
+  <!-- Btn -->
+
+  <!-- Btn -->
+  <button class="btn-modal-open" data-modal="insert_text-2">Text_btn-2-2</button>
+  <!-- Btn -->
+
+  <!-- modal -->
+  <div class="init-modal" data-modal="insert_text-2">
+    <div class="cont-modal-all">
+        <div class="contenido-modal">
+        <div class="close-x">
+            <div class="line-x1"></div>
+            <div class="line-x2"></div>
+        </div>
+
+        <div>
+          Inserte_contenido-2
+        </div>
+        </div>
+    </div>
+  </div>
+  <!-- modal -->
+
+<script>
+
+function modalUp() {
+
+  let $initModal = document.querySelectorAll('.init-modal[data-modal]');
+
+  $initModal.forEach((el, i) => {
+
+    let $contModalAll = document.querySelectorAll('.cont-modal-all');
+    let $closeX = document.querySelectorAll('.close-x');
+
+    document.addEventListener("click", function(e) {
+      
+      if (e.target.dataset.modal === $initModal[i].dataset.modal) {
+        e.preventDefault();
+        $initModal[i].classList.add("modal-bgOn");
+        $initModal[i].classList.remove("modal-bgOff");
+      }
+
+      if(e.target === $contModalAll[i] || e.target === $closeX[i]){
+        e.preventDefault();
+        $initModal[i].classList.remove("modal-bgOn");
+        $initModal[i].classList.add("modal-bgOff");
+      }
+
+    });
+
+  });
+
+}
+
+modalUp();
+
+</script>
+
+</body>
+</html>
